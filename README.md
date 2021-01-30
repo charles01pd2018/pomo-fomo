@@ -1,5 +1,2 @@
-# hack-jawnz
-HACKUCI 2021
-
-# POMO/FOMO
+# POMO/FOMO - HACKUCI 2021
 Study with your friends
