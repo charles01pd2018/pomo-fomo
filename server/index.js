@@ -38,6 +38,6 @@ app.post('/video/token', (req, res) => {
   sendTokenResponse(token, res);
 });
 
-app.listen(3001, () =>
-  console.log('Express server is running on localhost:3001')
+app.listen(process.env.API_PORT, () =>
+  console.log(`Express server is running on localhost:${process.env.API_PORT}`)
 );

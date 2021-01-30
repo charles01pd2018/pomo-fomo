@@ -3,7 +3,7 @@ import Video from "twilio-video";
 import Lobby from "./Lobby";
 import Room from "./Room";
 
-const VideoChat = () => {
+const Home = () => {
   const [username, setUsername] = useState("");
   const [roomName, setRoomName] = useState("");
   const [room, setRoom] = useState(null);
@@ -97,4 +97,4 @@ const VideoChat = () => {
   return render;
 };
 
-export default VideoChat;
+export default Home;
