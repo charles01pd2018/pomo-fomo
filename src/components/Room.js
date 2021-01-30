@@ -1,8 +1,38 @@
 import React, { useEffect, useState } from "react";
 import Participant from "./Participant";
 
+// utils
+import { calculateTimeLeft } from "./utils/TimeLeft";
+
 const Room = ({ roomName, room, handleLogout }) => {
   const [participants, setParticipants] = useState([]);
+
+  const [timeLeft, setTimeLeft] = useState({"minutes": 0, "seconds": 2});
+  const [timerComponents, setTimerComponents] = useState([]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft(timeLeft));
+    }, 1000);
+
+    try {
+      Object.keys(timeLeft).forEach((interval) => {
+        if (!timeLeft[interval]) {
+          return;
+        }
+        timerComponents[0] = (
+          <span>
+            {timeLeft["minutes"]} : {timeLeft["seconds"]}
+          </span>
+        );
+      });
+    }
+  catch {
+    setTimeLeft(null);
+  }
+    // Clear timeout if the component is unmounted
+    return () => clearTimeout(timer);
+  });
 
   useEffect(() => {
     const participantConnected = (participant) => {
@@ -31,6 +61,12 @@ const Room = ({ roomName, room, handleLogout }) => {
   return (
     <div className="room">
       <h2>Room: {roomName}</h2>
+
+      { timeLeft === null ? ( <div className='text-center mb-2'>Study Time Over! Take a break!</div> ) : (
+      <div className='text-center mb-2'>
+        {timerComponents.length ? timerComponents[timerComponents.length-1] : <span>...Starting Study Session...</span>}
+      </div> ) } 
+
       <button onClick={handleLogout}>Log out</button>
       <div className="local-participant">
         {room ? (
