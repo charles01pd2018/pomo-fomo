@@ -1,13 +1,17 @@
-const config = require('./config');
 const express = require('express');
 const bodyParser = require('body-parser');
-const pino = require('express-pino-logger')();
-const { videoToken } = require('./tokens');
+const cors = require('cors');
+const dotenv = require('dotenv');
 
+const config = require('./config');
+const { videoToken } = require('./tokens');
+dotenv.config({ path: '../.env' });
+
+const PORT = process.env.VIDEO_PORT;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(pino);
+app.use(cors());
 
 const sendTokenResponse = (token, res) => {
   res.set('Content-Type', 'application/json');
@@ -38,6 +42,4 @@ app.post('/video/token', (req, res) => {
   sendTokenResponse(token, res);
 });
 
-app.listen(process.env.API_PORT, () =>
-  console.log(`Express server is running on localhost:${process.env.API_PORT}`)
-);
+app.listen(PORT, () => console.log(`Twilio server running on port ${PORT}`));

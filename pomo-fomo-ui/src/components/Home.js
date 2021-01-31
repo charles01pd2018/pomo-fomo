@@ -21,7 +21,7 @@ const Home = () => {
     async (event) => {
       event.preventDefault();
       setConnecting(true);
-      const data = await fetch("/video/token", {
+      const data = await fetch("http://localhost:3001/video/token", {
         method: "POST",
         body: JSON.stringify({
           identity: username,

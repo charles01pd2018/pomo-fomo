@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config({ path: '../.env' });
+
 module.exports = {
   twilio: {
     accountSid: process.env.TWILIO_ACCOUNT_SID,
