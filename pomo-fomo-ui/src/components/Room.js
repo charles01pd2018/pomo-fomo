@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Participant from "./Participant";
-
+import yogaGif from "../yoga.gif";
+import danceGif from "../tiktokDance.gif";
 import { joinRoomAndSubscribe } from '../socketHandler';
 import { calculateTimeLeft } from "./utils/TimeLeft";
 
@@ -9,6 +10,8 @@ const Room = ({ roomName, room, handleLogout }) => {
   const [status, setStatus] = useState(null); 
   const [timeLeft, setTimeLeft] = useState(0);
   const [usersJoined, setUsersJoined] = useState([]);
+  const [breakTimeGifs, setBreakTimeGifs] = useState({yoga:yogaGif, dance:danceGif});
+  // const [gif, setGif] = useState('');
 
   // On-mount code 
   useEffect(() => {
@@ -53,7 +56,7 @@ const Room = ({ roomName, room, handleLogout }) => {
   } else if (status === 'pomodoro') {
     statusElement = <h3>Study time! Shh!</h3>
   } else {
-    statusElement = <h3>Break time! Let's do...{status}!</h3>
+    statusElement = <div><h3>Break time! Let's do...  <em>{status}</em>!</h3><img src={breakTimeGifs[status]}/></div>
   }
 
   const timeElement = <h3>{Math.floor(timeLeft / 60)}:{timeLeft % 60 < 10 ? '0' + timeLeft % 60 : timeLeft % 60}</h3>;

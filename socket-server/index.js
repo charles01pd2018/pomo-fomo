@@ -11,11 +11,9 @@ const WAITING_TIME_LENGTH = 10;
 const POMODORO_TIME_LENGTH = 5; // seconds
 const ACTIVITY_TIME_LENGTH = 7;
 const ACTIVITY_CHOICES = [
-  'dooh-dooh',
-  'naruto-hype',
-  'charlie-bit-my-finger',
-  'nam-do-san-likes-money',
-  'cat-vids'
+  'yoga',
+  'dance',
+  
 ];
 const rooms = {};
 
