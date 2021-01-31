@@ -4,7 +4,9 @@
 
 ![pomo-fomo-cover](/cover.png)
 
-Group Members: **Charlie Lu, Josh Costa, Anthea Nguyen, Jia Li Huang**
+Group Members: **Charlie Lu, Joshua Costa, Anthea Nguyen, Jia Li Huang**
+
+[Introduction + Demo (YouTube)](https://www.youtube.com/watch?v=CkTRZA7uErg&t=103s&ab_channel=JoshuaCosta)
 
 ## pomo-fomo functionalities
 
@@ -16,9 +18,5 @@ The following are pomo-fomo's functionalities
 * [x] Synchronized video streaming utilizing Twilio Progammable Video and Web Sockets
 * [x] Reactive page to reflect various state changes
 * [x] Logout functionality for partipants to leave the study room  
-
-## Video Walkthrough
-
-Here's a walkthrough of the implemented code:
 
 
