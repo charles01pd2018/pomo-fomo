@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+import { randomNumGenerator } from "./utils/RandomNum";
+import backgroundImages from "./utils/backgroundImages"
 
 const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
+  const [participantBackground, setparticipantBackground] = useState('');
 
   const videoRef = useRef();
   const audioRef = useRef();
@@ -15,6 +18,9 @@ const Participant = ({ participant }) => {
   useEffect(() => {
     setVideoTracks(trackpubsToTracks(participant.videoTracks));
     setAudioTracks(trackpubsToTracks(participant.audioTracks));
+
+    const index = randomNumGenerator(4);
+    setparticipantBackground(backgroundImages[index]);
 
     const trackSubscribed = (track) => {
       if (track.kind === "video") {
@@ -34,7 +40,6 @@ const Participant = ({ participant }) => {
 
     participant.on("trackSubscribed", trackSubscribed);
     participant.on("trackUnsubscribed", trackUnsubscribed);
-
     return () => {
       setVideoTracks([]);
       setAudioTracks([]);
@@ -62,8 +67,10 @@ const Participant = ({ participant }) => {
     }
   }, [audioTracks]);
 
+  // const participantElement = <div className="participant" style={{backgroundImage: `url(${participantBackgrounds[randomNumGenerator(5)]})` }}></div>
+
   return (
-    <div className="participant">
+    <div className="participant" style={{ backgroundImage: `url(${participantBackground})` }}>
       <h3>{participant.identity}</h3>
       <video ref={videoRef} autoPlay={true} />
       <audio ref={audioRef} autoPlay={true} muted={true} />
