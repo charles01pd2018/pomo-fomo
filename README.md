@@ -19,4 +19,4 @@ The following are pomo-fomo's functionalities
 
 Here's a walkthrough of the implemented code:
 
-![](https://i.imgur.com/URSJdZe.gif)
+
