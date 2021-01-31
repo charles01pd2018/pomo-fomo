@@ -10,8 +10,8 @@ const Room = ({ roomName, room, handleLogout }) => {
   const [status, setStatus] = useState(null); 
   const [timeLeft, setTimeLeft] = useState(0);
   const [usersJoined, setUsersJoined] = useState([]);
-  const [breakTimeGifs, setBreakTimeGifs] = useState({yoga:yogaGif, dance:danceGif});
-  // const [gif, setGif] = useState('');
+  const [isStudying, setIsStudying] = useState(false);
+  const [breakTimeGifs, setBreakTimeGifs] = useState({ yoga: yogaGif, dance: danceGif });
 
   // On-mount code 
   useEffect(() => {
@@ -23,6 +23,16 @@ const Room = ({ roomName, room, handleLogout }) => {
       setUsersJoined([...usersJoined, newMessage]);
     });
   }, []);
+
+  useEffect(() => {
+    if (status === 'waiting') {
+      setIsStudying(false);
+    } else if (status === 'pomodoro') {
+      setIsStudying(true);
+    } else {
+      setIsStudying(false);
+    }
+  }, [status]);
 
   useEffect(() => {
     const participantConnected = (participant) => {
@@ -46,7 +56,7 @@ const Room = ({ roomName, room, handleLogout }) => {
 
   const allParticipants = [room.localParticipant, ...participants].map((participant) => (
     <div className="col-xl-6">
-      <Participant key={participant.sid} participant={participant} />
+      <Participant key={participant.sid} participant={participant} isStudying={isStudying}/>
     </div>
   ));
 
@@ -56,7 +66,13 @@ const Room = ({ roomName, room, handleLogout }) => {
   } else if (status === 'pomodoro') {
     statusElement = <h3>Study time! Shh!</h3>
   } else {
-    statusElement = <div><h3>Break time! Let's do...  <em>{status}</em>!</h3><img src={breakTimeGifs[status]}/></div>
+    statusElement =
+    (
+      <div>
+        <h3>Break time! Let's do...{status}!</h3>
+        <img className="mb-2" src={breakTimeGifs[status]}/>
+      </div>
+    );
   }
 
   const timeElement = <h3>{Math.floor(timeLeft / 60)}:{timeLeft % 60 < 10 ? '0' + timeLeft % 60 : timeLeft % 60}</h3>;
@@ -64,20 +80,16 @@ const Room = ({ roomName, room, handleLogout }) => {
   return (
     <div className="container-fluid room text-center">
       <div className="row no-gutters">
-        <div className="col-md-3">
-        </div>
-        <div className="col-md-6">
+        <div className="col-md-5">
           <h2>Room: {roomName}</h2>
-
-          {statusElement}
+          <button className="mb-2" onClick={handleLogout}>Leave room</button>
           {timeElement}
-
-          <button onClick={handleLogout}>Log out</button>
+          {statusElement}
+        </div>
+        <div className="col-md-7">
           <div className="row participants-container">
             {allParticipants}
           </div>
-        </div>
-        <div className="col-md-3">
         </div>
       </div>
     </div>

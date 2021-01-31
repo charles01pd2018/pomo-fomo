@@ -43,7 +43,6 @@ form {
 
 h2 {
   font-weight: 300;
-  margin-bottom: 1em;
   text-align: center;
 }
 
@@ -79,15 +78,10 @@ button:hover {
 .room {
   position: relative;
 }
-.room button {
-  position: absolute;
-  top: 0;
-  right: 20px;
-}
+
 .room > h3 {
   text-align: center;
   font-weight: 300;
-  margin-bottom: 1em;
 }
 
 .local-participant {

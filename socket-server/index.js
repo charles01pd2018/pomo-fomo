@@ -7,13 +7,12 @@ const dotenv = require('dotenv');
 dotenv.config({ path: '../.env' });
 const PORT = process.env.SOCKET_PORT;
 
-const WAITING_TIME_LENGTH = 10;
-const POMODORO_TIME_LENGTH = 5; // seconds
-const ACTIVITY_TIME_LENGTH = 7;
+const WAITING_TIME_LENGTH = 30;
+const POMODORO_TIME_LENGTH = 15; // seconds
+const ACTIVITY_TIME_LENGTH = 10;
 const ACTIVITY_CHOICES = [
   'yoga',
   'dance',
-  
 ];
 const rooms = {};
 
