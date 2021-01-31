@@ -1,38 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Participant from "./Participant";
 
-// utils
+import { joinRoomAndSubscribe } from '../socketHandler';
 import { calculateTimeLeft } from "./utils/TimeLeft";
 
 const Room = ({ roomName, room, handleLogout }) => {
   const [participants, setParticipants] = useState([]);
+  const [status, setStatus] = useState(null); 
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [usersJoined, setUsersJoined] = useState([]);
 
-  const [timeLeft, setTimeLeft] = useState({"minutes": 0, "seconds": 2});
-  const [timerComponents, setTimerComponents] = useState([]);
-
+  // On-mount code 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft(timeLeft));
-    }, 1000);
-
-    try {
-      Object.keys(timeLeft).forEach((interval) => {
-        if (!timeLeft[interval]) {
-          return;
-        }
-        timerComponents[0] = (
-          <span>
-            {timeLeft["minutes"]} : {timeLeft["seconds"]}
-          </span>
-        );
-      });
-    }
-  catch {
-    setTimeLeft(null);
-  }
-    // Clear timeout if the component is unmounted
-    return () => clearTimeout(timer);
-  });
+    // Join a socket room
+    joinRoomAndSubscribe(room.localParticipant.identity, roomName, (err, newStatus, newTimeLeft) => {
+      setStatus(newStatus);
+      setTimeLeft(newTimeLeft);
+    }, (err, newMessage) => {
+      setUsersJoined([...usersJoined, newMessage]);
+    });
+  }, []);
 
   useEffect(() => {
     const participantConnected = (participant) => {
@@ -62,10 +49,9 @@ const Room = ({ roomName, room, handleLogout }) => {
     <div className="room">
       <h2>Room: {roomName}</h2>
 
-      { timeLeft === null ? ( <div className='text-center mb-2'>Study Time Over! Take a break!</div> ) : (
-      <div className='text-center mb-2'>
-        {timerComponents.length ? timerComponents[timerComponents.length-1] : <span>...Starting Study Session...</span>}
-      </div> ) } 
+      status: {status}
+      time left: {timeLeft}
+      users joined messages: {usersJoined.map(user => <p>{user}</p>)}
 
       <button onClick={handleLogout}>Log out</button>
       <div className="local-participant">
