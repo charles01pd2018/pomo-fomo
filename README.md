@@ -6,6 +6,8 @@
 
 Group Members: **Charlie Lu, Joshua Costa, Anthea Nguyen, Jia Li Huang**
 
+[Devpost Submission](https://devpost.com/software/pomo-fomo?ref_content=my-projects-tab&ref_feature=my_projects)
+
 [Introduction + Demo (YouTube)](https://www.youtube.com/watch?v=CkTRZA7uErg&t=103s&ab_channel=JoshuaCosta)
 
 ## pomo-fomo functionalities
